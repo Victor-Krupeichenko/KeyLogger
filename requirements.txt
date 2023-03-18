@@ -1,4 +1,5 @@
 keyboard==0.13.5
 pip==23.0.1
 setuptools==67.6.0
-wheel==0.38.4
+wheel==0.40.0
+python-dotenv==1.0.0
